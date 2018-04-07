@@ -4,7 +4,7 @@ RSpec.describe Kernel do
   before(:each) do
     class Person; end
     add_checked_attribute(Person, :age)
-    let(:bob) { Person.new }
+    @bob = Person.new
   end
   describe 'checked_attribute' do
     example 'accepts valid values' do
