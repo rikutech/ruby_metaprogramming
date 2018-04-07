@@ -3,7 +3,9 @@ require "spec_helper"
 RSpec.describe Kernel do
   before(:each) do
     class Person; end
-    add_checked_attribute(Person, :age)
+    add_checked_attribute(Person, :age) do |age|
+      age > 18
+    end
     @bob = Person.new
   end
   describe 'checked_attribute' do
@@ -12,12 +14,8 @@ RSpec.describe Kernel do
       expect(@bob.age).to eq 20
     end
 
-    example 'refuse nil values' do
-      expect { @bob.age = nil }.to raise_error(RuntimeError)
-    end
-
-    example 'refuse false values' do
-      expect { @bob.age = false }.to raise_error(RuntimeError)
+    example 'refuse invalid values' do
+      expect { @bob.age = 18 }.to raise_error(RuntimeError)
     end
   end
 end

@@ -1,7 +1,7 @@
 def add_checked_attribute(klass, attribute)
   klass.class_eval do
     define_method "#{attribute}=" do |value|
-      raise 'Invalid attribute' unless value
+      raise 'Invalid attribute' unless yield(value)
       instance_variable_set("@#{attribute}", value)
     end
 
